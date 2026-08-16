@@ -1,0 +1,26 @@
+import os
+import random
+import requests
+
+BOT_TOKEN = os.environ["BOT_TOKEN"]
+CHANNEL_USERNAME = os.environ["CHANNEL_USERNAME"]
+
+API_URL = "https://api.telegram.org/bot" + BOT_TOKEN + "/sendMessage"
+
+QUOTES = [
+    "Albloh mashaqqat bilan birga yengillik bergan. (Sharh surasi, 6-oyat)",
+    "Kim Allohga tavakkul qilsa, U unga kifoya qiladi. (Taloq surasi, 3-oyat)",
+    "Kuchli momin Alloh oldida zaif momindan yaxshiroqdir. (Muslim rivoyati)",
+    "Alloh hech kimga toqatidan tashqari yuk yuklamaydi. (Baqara surasi, 286-oyat)",
+    "Ishlarni tugal va mustahkam bajaring, Alloh shuni yaxshi koradi. (Sahih hadis)",
+    "Sabr qilinglar, Alloh sabr qiluvchilar bilan birgadir. (Anfol surasi, 46-oyat)",
+    "Allohning rahmatidan umidsiz bolmang. (Zumar surasi, 53-oyat)",
+    "Odamlarning eng yaxshisi odamlarga foyda keltiradigan kishidir. (Tabaroniy rivoyati)",
+    "Har qanday qiyinchilikdan keyin albatta yengillik bor. (Sharh surasi, 5-oyat)",
+    "Kim bir yaxshilikka yol korsatsa, uni qilgan kishi kabi savob oladi. (Muslim rivoyati)",
+]
+
+text = random.choice(QUOTES)
+payload = {"chat_id": CHANNEL_USERNAME, "text": text}
+response = requests.post(API_URL, data=payload)
+print(response.status_code, response.text)
