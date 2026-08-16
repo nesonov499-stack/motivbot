@@ -1,0 +1,31 @@
+name: Motivatsion Bot
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+    - cron: "0 6 * * *"
+    - cron: "0 9 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 16 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo'ni yuklab olish
+        uses: actions/checkout@v4
+
+      - name: Python o'rnatish
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Kerakli kutubxonalarni o'rnatish
+        run: pip install requests
+
+      - name: Xabar yuborish
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL_USERNAME: ${{ secrets.CHANNEL_USERNAME }}
+        run: python send_message.pdf
